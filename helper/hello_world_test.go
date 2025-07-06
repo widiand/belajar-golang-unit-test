@@ -17,6 +17,17 @@ func TestMain(m *testing.M) {
 	fmt.Println("after")
 }
 
+func TestSubTest(t *testing.T) {
+	t.Run("Eko", func(t *testing.T) {
+		result := HelloWorld("Eko")
+		require.Equal(t, "Hello Eko", result, "harusnya Hello Eko")
+	})
+	t.Run("Khannedy", func(t *testing.T) {
+		result := HelloWorld("Khannedy")
+		require.Equal(t, "Hello Khannedy", result, "harusnya Hello Khannedy")
+	})
+}
+
 func TestSkip(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		t.Skip("Can't run on windows")//wil skip the test below
