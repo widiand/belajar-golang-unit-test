@@ -17,6 +17,41 @@ func TestMain(m *testing.M) {
 	fmt.Println("after")
 }
 
+func BenchmarkHelloWorld(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Eko")
+	}
+}
+
+func BenchmarkHelloWorldSub(b *testing.B) {
+	b.Run("Eko", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Eko")
+		}
+	})
+	b.Run("Khannedy", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Khannedy")
+		}
+	})
+}
+
+func BenchmarkHelloWorldTable(b *testing.B) {
+	tests := []string {
+		"Eko",
+		"Khannedy",
+		"Budi",
+	}
+
+	for _, test := range tests {
+		b.Run(test, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(test)
+			}
+		})
+	}
+}
+
 func TestHelloWorldTable(t *testing.T) {
 	tests := []struct {
 		name string
